@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "JasonTaylorDev",
+  "classifications": [
+    "Web",
+    "SPA",
+    "ASP.NET",
+    "Clean Architecture"
+  ],
+  "name": "Clean Architecture Solution",
+  "description": "A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.",
+  "identity": "Clean.Architecture.Solution.CSharp",
+  "groupIdentity": "Clean.Architecture.Solution",
+  "shortName": "ca-sln",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CleanArchitecture",
+  "preferNameDirectory": true,
+  "symbols": {
+    "clientFramework": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "angular",
+          "description": "Use Angular"
+        },
+        {
+          "choice": "react",
+          "description": "Use React"
+        }
+      ],
+      "defaultValue": "angular",
+      "description": "The type of client framework to use"
+    },
+    "UseAngular": {
+      "type": "computed",
+      "value": "(clientFramework == \"Angular\")"
+    },
+    "UseReact": {
+      "type": "computed",
+      "value": "(clientFramework == \"React\")"
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "README.md",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "templates/**/*",
+        ".vs/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/.git/**",
+        "*.nuspec",
+        "**/node_modules/**",
+        "**/web-api-client.ts",
+        "src/WebUI/wwwroot/api/**"
+      ],
+      "modifiers": [
+        {
+          "condition": "(UseAngular)",
+          "exclude": [
+            "src/WebUI/config-react.nswag",
+            "src/WebUI/ClientApp-React/**",
+            "src/WebUI/Templates/**"
+          ]
+        },
+        {
+          "condition": "(UseReact)",
+          "exclude": [
+            "src/WebUI/config.nswag",
+            "src/WebUI/ClientApp/**"
+          ],
+          "rename": {
+            "config-react.nswag": "config.nswag",
+            "ClientApp-React": "ClientApp"
+          }
+        }
+      ]
+    }
+  ]
+}
